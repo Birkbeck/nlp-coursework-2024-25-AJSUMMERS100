@@ -61,12 +61,13 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
         authors.append(name[1])
         years.append(name[2].replace(".txt",""))
         with open(each, 'r') as the_txt_file:
-            texts.append((the_txt_file.read()).replace("\n",""))
+            texts.append((the_txt_file.read()).replace("\n"," "))
     pre_df['text'] = texts
     pre_df['title'] = titles
     pre_df['author'] = authors
     pre_df['years'] = years
     df = pd.DataFrame(pre_df)
+    print(df.sort_values(by='years'))
     return df.sort_values(by='years')
 
 
