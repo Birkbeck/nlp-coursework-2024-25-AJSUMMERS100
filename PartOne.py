@@ -47,7 +47,7 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
     """Reads texts from a directory of .txt files and returns a DataFrame with the text, title,
     author, and year"""
     pre_df = {}
-    path_to_files = Path.cwd() / "novels"
+    path_to_files = Path.cwd() /"p1-texts" / "novels"
     files = glob.glob(os.path.join(path_to_files, '*.txt'))
     texts = []
     titles= []
