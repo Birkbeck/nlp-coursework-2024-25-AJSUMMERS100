@@ -47,14 +47,14 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
     """Reads texts from a directory of .txt files and returns a DataFrame with the text, title,
     author, and year"""
     pre_df = {}
-    path_to_files = "/Users/alexandersummers/Desktop/nlp-coursework-2024-25-AJSUMMERS100/novels/"
+    path_to_files = Path.cwd() / "novels"
     files = glob.glob(os.path.join(path_to_files, '*.txt'))
     texts = []
     titles= []
     authors = []
     years = []
     for each in files:
-        name = each.removeprefix(path_to_files)
+        name = each.removeprefix(str(path_to_files))
         name = name.split("-")
         title = name[0].replace("_"," ")
         titles.append(title)
@@ -69,7 +69,7 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
     df = pd.DataFrame(pre_df)
     print(df.sort_values(by='years'))
     return df.sort_values(by='years')
-
+read_novels(path=Path.cwd() / "texts" / "novels")
 
 def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
     """Parses the text of a DataFrame using spaCy, stores the parsed docs as a column and writes 
