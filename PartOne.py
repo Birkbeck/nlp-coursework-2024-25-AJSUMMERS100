@@ -67,9 +67,7 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
     pre_df['author'] = authors
     pre_df['years'] = years
     df = pd.DataFrame(pre_df)
-    print(df.sort_values(by='years'))
     return df.sort_values(by='years')
-read_novels(path=Path.cwd() / "texts" / "novels")
 
 def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
     """Parses the text of a DataFrame using spaCy, stores the parsed docs as a column and writes 
