@@ -23,6 +23,10 @@ def fk_level(text, d):
     Returns:
         float: The Flesch-Kincaid Grade Level of the text. (higher grade is more difficult)
     """
+    for i in range(len(text)):
+        if text[i] not in alphabet:
+            text[i] = ""
+    text = "".join(text)
     token_words = nltk.word_tokenize(text)
     n_of_words = len(token_words)
     token_sentences = nltk.sent_tokenize(text)
