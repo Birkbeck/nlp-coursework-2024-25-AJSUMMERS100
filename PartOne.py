@@ -56,6 +56,7 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
         name = each.removeprefix(str(path))
         name = name.split("-")
         title = name[0].replace("_"," ")
+        title = title.replace("/","")
         titles.append(title)
         authors.append(name[1])
         years.append(name[2].replace(".txt",""))
@@ -68,6 +69,7 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
     df = pd.DataFrame(pre_df)
     return df.sort_values(by='years')
 
+
 def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
     """Parses the text of a DataFrame using spaCy, stores the parsed docs as a column and writes 
     the resulting  DataFrame to a pickle file"""
@@ -76,7 +78,6 @@ def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
 
 def nltk_ttr(text):
     """Calculates the type-token ratio of a text. Text is tokenized using nltk.word_tokenize."""
-    print(text)
     text = text.lower()
     text = list(text)
     alphabet = [" ","a","b","c","d","e","f","g","h",'i',"j","k","l","m",
@@ -91,14 +92,13 @@ def nltk_ttr(text):
     return type_token_ratio
 
 
-
 def get_ttrs(df):
     """helper function to add ttr to a dataframe"""
     results = {}
     for i, row in df.iterrows():
         results[row["title"]] = nltk_ttr(row["text"])
     return results
-print(get_ttrs(read_novels(path=Path.cwd() / "texts" / "novels")))
+
 
 def get_fks(df):
     """helper function to add fk scores to a dataframe"""
@@ -135,6 +135,8 @@ if __name__ == "__main__":
     print(path)
     df = read_novels(path) # this line will fail until you have completed the read_novels function above.
     print(df.head())
+    print(get_ttrs(df))
+
     #nltk.download("cmudict")
     #parse(df)
     #print(df.head())
