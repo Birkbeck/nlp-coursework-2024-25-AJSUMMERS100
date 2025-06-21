@@ -47,14 +47,13 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
     """Reads texts from a directory of .txt files and returns a DataFrame with the text, title,
     author, and year"""
     pre_df = {}
-    path_to_files = Path.cwd() /"p1-texts" / "novels"
-    files = glob.glob(os.path.join(path_to_files, '*.txt'))
+    files = glob.glob(os.path.join(path, '*.txt'))
     texts = []
     titles= []
     authors = []
     years = []
     for each in files:
-        name = each.removeprefix(str(path_to_files))
+        name = each.removeprefix(str(path))
         name = name.split("-")
         title = name[0].replace("_"," ")
         titles.append(title)
@@ -120,10 +119,10 @@ if __name__ == "__main__":
     """
     uncomment the following lines to run the functions once you have completed them
     """
-    #path = Path.cwd() / "p1-texts" / "novels"
-    #print(path)
-    #df = read_novels(path) # this line will fail until you have completed the read_novels function above.
-    #print(df.head())
+    path = Path.cwd() / "p1-texts" / "novels"
+    print(path)
+    df = read_novels(path) # this line will fail until you have completed the read_novels function above.
+    print(df.head())
     #nltk.download("cmudict")
     #parse(df)
     #print(df.head())
