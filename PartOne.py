@@ -86,7 +86,10 @@ def nltk_ttr(text):
             text[i] = ""
     text = "".join(text)
     tokens = []
-    
+    tokens.extend(nltk.word_tokenize(text))
+    type_token_ratio = len(set(tokens))/len(tokens)
+    return type_token_ratio
+
 
 
 def get_ttrs(df):
@@ -95,7 +98,7 @@ def get_ttrs(df):
     for i, row in df.iterrows():
         results[row["title"]] = nltk_ttr(row["text"])
     return results
-
+print(get_ttrs(read_novels(path=Path.cwd() / "texts" / "novels")))
 
 def get_fks(df):
     """helper function to add fk scores to a dataframe"""
