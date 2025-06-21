@@ -34,10 +34,11 @@ def fk_level(text, d):
         try:
             numbers = "0","1","2","3","4","5","6","7","8","9"
             list_of_s = d[each.lower()]
-            n_of_syllabels += max([len([j for j in i if (j[-1] in numbers)]) for i in list_of_s])
+            n_of_syllables += max([len([j for j in i if (j[-1] in numbers)]) for i in list_of_s])
         except KeyError:
-            n_of_syllabels += 0
+            n_of_syllables += 0
     fk = (0.39*(n_of_words / n_of_sentences)) + (11.8*(n_of_syllables / n_of_words)) - 15.59
+    return fk
 
 
 
@@ -153,7 +154,7 @@ if __name__ == "__main__":
     #nltk.download("cmudict")
     #parse(df)
     #print(df.head())
-    #print(get_ttrs(df))
+    print(get_ttrs(df))
     print(get_fks(df))
     #df = pd.read_pickle(Path.cwd() / "pickles" /"name.pickle")
     # print(adjective_counts(df))
