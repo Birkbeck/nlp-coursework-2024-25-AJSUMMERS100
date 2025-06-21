@@ -76,8 +76,17 @@ def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
 
 def nltk_ttr(text):
     """Calculates the type-token ratio of a text. Text is tokenized using nltk.word_tokenize."""
+    print(text)
+    text = text.lower()
+    text = list(text)
+    alphabet = [" ","a","b","c","d","e","f","g","h",'i',"j","k","l","m",
+                "n","o","p","q","r","s","t","u","v","w","x","y","z"]
+    for i in range(len(text)):
+        if text[i] not in alphabet:
+            text[i] = ""
+    text = "".join(text)
+    tokens = []
     
-    pass
 
 
 def get_ttrs(df):
