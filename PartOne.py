@@ -31,12 +31,7 @@ def fk_level(text, d):
         return 0
     n_of_syllables = 0
     for each in token_words:
-        try:
-            numbers = "0","1","2","3","4","5","6","7","8","9"
-            list_of_s = d[each.lower()]
-            n_of_syllables += max([len([j for j in i if (j[-1] in numbers)]) for i in list_of_s])
-        except KeyError:
-            n_of_syllables += 0
+        n_of_syllables += count_syl(each, d)
     fk = (0.39*(n_of_words / n_of_sentences)) + (11.8*(n_of_syllables / n_of_words)) - 15.59
     return fk
 
@@ -53,7 +48,14 @@ def count_syl(word, d):
     Returns:
         int: The number of syllables in the word.
     """
-    pass
+    n_of_syllables = 0
+    try:
+        numbers = "0","1","2","3","4","5","6","7","8","9"
+        list_of_s = d[word.lower()]
+        n_of_syllables += max([len([j for j in i if (j[-1] in numbers)]) for i in list_of_s])
+    except KeyError:
+        n_of_syllables += 0
+    return n_of_syllables
 
 
 import pandas as pd
