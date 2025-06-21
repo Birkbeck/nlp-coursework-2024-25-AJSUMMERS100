@@ -23,7 +23,17 @@ def fk_level(text, d):
     Returns:
         float: The Flesch-Kincaid Grade Level of the text. (higher grade is more difficult)
     """
-    pass
+    token_words = nltk.word_tokenize(text)
+    n_of_words = len(token_words)
+    token_sentences = nltk.sent_tokenize(text)
+    n_of_sentences = len(token_sentences)
+    if n_of_sentences == 0 or n_of_words == 0:
+        return 0
+    n_of_syllables = 0
+    for each in token_words:
+        n_of_syllabels += 
+    fk = (0.39*(n_of_words / n_of_sentences)) + (11.8*(n_of_syllables / n_of_words)) - 15.59
+
 
 
 def count_syl(word, d):
@@ -135,8 +145,6 @@ if __name__ == "__main__":
     print(path)
     df = read_novels(path) # this line will fail until you have completed the read_novels function above.
     print(df.head())
-    print(get_ttrs(df))
-
     #nltk.download("cmudict")
     #parse(df)
     #print(df.head())
