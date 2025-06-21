@@ -11,7 +11,7 @@ nlp = spacy.load("en_core_web_sm")
 nlp.max_length = 2000000
 
 
-
+import re
 def fk_level(text, d):
     """Returns the Flesch-Kincaid Grade Level of a text (higher grade is more difficult).
     Requires a dictionary of syllables per word.
@@ -32,8 +32,9 @@ def fk_level(text, d):
     n_of_syllables = 0
     for each in token_words:
         try:
-            list_of_s = d[each]
-            n_of_syllabels += 
+            numbers = "0","1","2","3","4","5","6","7","8","9"
+            list_of_s = d[each.lower()]
+            n_of_syllabels += max([len([j for j in i if (j[-1] in numbers)]) for i in list_of_s])
         except KeyError:
             n_of_syllabels += 0
     fk = (0.39*(n_of_words / n_of_sentences)) + (11.8*(n_of_syllables / n_of_words)) - 15.59
@@ -153,7 +154,7 @@ if __name__ == "__main__":
     #parse(df)
     #print(df.head())
     #print(get_ttrs(df))
-    #print(get_fks(df))
+    print(get_fks(df))
     #df = pd.read_pickle(Path.cwd() / "pickles" /"name.pickle")
     # print(adjective_counts(df))
     """ 
