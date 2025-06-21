@@ -1,1 +1,9 @@
 Answers to the text questions go here.
+
+Question 1: Part D: 
+The Flesch-Kincaid score is not a valid nor reliable estimator as it 
+relies only on the length of sentences and words. This can lead
+to a paragraph with simpler words and sentences being graded
+higher than that of a more complext text, even though it may
+not be of similar quality. This implies that context of the text
+itself is not relevant in the grading process.
