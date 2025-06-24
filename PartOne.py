@@ -102,7 +102,7 @@ def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
     """Parses the text of a DataFrame using spaCy, stores the parsed docs as a column and writes 
     the resulting  DataFrame to a pickle file"""
     nlp.max_length = 2000000
-    df['doc'] = list(nlp.pipe(df['text']))
+    df['parsed'] = list(nlp.pipe(df['text']))
     df.to_pickle(store_path / "df.pkl")
     return df
 
@@ -154,14 +154,13 @@ def subjects_by_verb_count(doc, verb):
 from collections import Counter
 def adjective_counts(doc):
     """Extracts the most common adjectives in a parsed document. Returns a list of tuples."""
-    for each in doc:
+    for i, row in doc.iterrows():
         syntactic_subjects = []
-        for token in each['text']:
+        for token in row['parsed']:
             if token.dep_ == "nsubj":
-                syntactic_subjects.apend(token.text.lower())
+                syntactic_subjects.append(token.text.lower())
         ten_subjects = Counter(syntactic_subjects).most_common(10)
-        print(f"Title: {each['title']}, Ten Most Common Syntactic Subjects: {syntactic_subjects}\n")     
-    pass
+        print(f"Title: {row['title']}, Ten Most Common Syntactic Subjects: {ten_subjects}\n")
 
 
 
@@ -173,7 +172,7 @@ if __name__ == "__main__":
     print(path)
     df = read_novels(path) # this line will fail until you have completed the read_novels function above.
     print(df.head())
-    # nltk.download("cmudict")
+    # nltk.download("cmudict") Please do not uncomment this. I keep getting SSL errors even though I have it downloaded.
     parse(df)
     print(df.head())
     print(get_ttrs(df))
