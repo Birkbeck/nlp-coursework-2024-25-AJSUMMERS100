@@ -154,13 +154,14 @@ def subjects_by_verb_count(doc, verb):
 from collections import Counter
 def adjective_counts(doc):
     """Extracts the most common adjectives in a parsed document. Returns a list of tuples."""
+    possible_objects = {"attr", "dobj", "iobj", "obj", "pobj"}
     for i, row in doc.iterrows():
-        syntactic_subjects = []
+        syntactic_objects = []
         for token in row['parsed']:
-            if token.dep_ == "nsubj":
-                syntactic_subjects.append(token.text.lower())
-        ten_subjects = Counter(syntactic_subjects).most_common(10)
-        print(f"Title: {row['title']}, Ten Most Common Syntactic Subjects: {ten_subjects}\n")
+            if token.dep_ in possible_objects:
+                syntactic_objects.append(token.text.lower())
+        ten_objects = Counter(syntactic_objects).most_common(10)
+        print(f"Title: {row['title']}, Ten Most Common Syntactic Subjects: {ten_objects}\n")
 
 
 
