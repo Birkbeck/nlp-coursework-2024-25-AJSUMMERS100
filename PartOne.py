@@ -100,6 +100,7 @@ def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
     """Parses the text of a DataFrame using spaCy, stores the parsed docs as a column and writes 
     the resulting  DataFrame to a pickle file"""
     df['Doc'] = df['text'].apply(nlp)
+    df.to_pickle(df.pkl)
     
     pass
 
