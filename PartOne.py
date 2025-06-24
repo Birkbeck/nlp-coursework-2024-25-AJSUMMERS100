@@ -108,7 +108,7 @@ def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
     print(max_length)
     nlp.max_length = max_length*2
     df['doc'] = df['text'].apply(nlp)
-    df.to_pickle(df.pkl)
+   # df.to_pickle(df.pkl)
     return df
 
 
@@ -176,7 +176,7 @@ if __name__ == "__main__":
     print(df.head())
     print(get_ttrs(df))
     print(get_fks(df))
-    df = pd.read_pickle(Path.cwd() / "pickles" /"name.pickle")
+    #df = pd.read_pickle(Path.cwd() / "pickles" /"name.pickle")
     # print(adjective_counts(df))
     """ 
     for i, row in df.iterrows():
