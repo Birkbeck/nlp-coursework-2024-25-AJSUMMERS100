@@ -151,9 +151,16 @@ def subjects_by_verb_count(doc, verb):
     pass
 
 
-
+from collections import Counter
 def adjective_counts(doc):
     """Extracts the most common adjectives in a parsed document. Returns a list of tuples."""
+    for each in doc:
+        syntactic_subjects = []
+        for token in each['text']:
+            if token.dep_ == "nsubj":
+                syntactic_subjects.apend(token.text.lower())
+        ten_subjects = Counter(syntactic_subjects).most_common(10)
+        print(f"Title: {each['title']}, Ten Most Common Syntactic Subjects: {syntactic_subjects}\n")     
     pass
 
 
@@ -172,7 +179,7 @@ if __name__ == "__main__":
     print(get_ttrs(df))
     print(get_fks(df))
     df = pd.read_pickle(Path.cwd() / "pickles" /"df.pkl")
-    # print(adjective_counts(df))
+    print(adjective_counts(df))
     """ 
     for i, row in df.iterrows():
         print(row["title"])
