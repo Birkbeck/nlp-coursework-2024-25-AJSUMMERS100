@@ -101,8 +101,7 @@ def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
     the resulting  DataFrame to a pickle file"""
     df['Doc'] = df['text'].apply(nlp)
     df.to_pickle(df.pkl)
-    
-    pass
+    return df
 
 
 def nltk_ttr(text):
@@ -164,12 +163,12 @@ if __name__ == "__main__":
     print(path)
     df = read_novels(path) # this line will fail until you have completed the read_novels function above.
     print(df.head())
-    #nltk.download("cmudict")
-    #parse(df)
-    #print(df.head())
+    nltk.download("cmudict")
+    parse(df)
+    print(df.head())
     print(get_ttrs(df))
     print(get_fks(df))
-    #df = pd.read_pickle(Path.cwd() / "pickles" /"name.pickle")
+    df = pd.read_pickle(Path.cwd() / "pickles" /"df.pkl")
     # print(adjective_counts(df))
     """ 
     for i, row in df.iterrows():
