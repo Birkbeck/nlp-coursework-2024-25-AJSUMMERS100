@@ -101,14 +101,9 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
 def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
     """Parses the text of a DataFrame using spaCy, stores the parsed docs as a column and writes 
     the resulting  DataFrame to a pickle file"""
-    max_length = 0
-    for each in df['text']:
-        if len(each) > max_length:
-            max_length = len(each)
-    print(max_length)
-    nlp.max_length = max_length*2
-    df['doc'] = df['text'].apply(nlp)
-   # df.to_pickle(df.pkl)
+    nlp.max_length = 2000000
+    df['doc'] = list(nlp.pipe(df['text']))
+    df.to_pickle(store_path / "df.pkl")
     return df
 
 
@@ -176,7 +171,7 @@ if __name__ == "__main__":
     print(df.head())
     print(get_ttrs(df))
     print(get_fks(df))
-    #df = pd.read_pickle(Path.cwd() / "pickles" /"name.pickle")
+    df = pd.read_pickle(Path.cwd() / "pickles" /"df.pkl")
     # print(adjective_counts(df))
     """ 
     for i, row in df.iterrows():
