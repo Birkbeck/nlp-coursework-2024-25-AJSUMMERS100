@@ -96,10 +96,18 @@ def read_novels(path=Path.cwd() / "texts" / "novels"):
     return df.sort_values(by='years')
 
 
+
+
 def parse(df, store_path=Path.cwd() / "pickles", out_name="parsed.pickle"):
     """Parses the text of a DataFrame using spaCy, stores the parsed docs as a column and writes 
     the resulting  DataFrame to a pickle file"""
-    df['Doc'] = df['text'].apply(nlp)
+    max_length = 0
+    for each in df['text']:
+        if len(each) > max_length:
+            max_length = len(each)
+    print(max_length)
+    nlp.max_length = max_length*2
+    df['doc'] = df['text'].apply(nlp)
     df.to_pickle(df.pkl)
     return df
 
