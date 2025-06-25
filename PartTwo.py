@@ -90,7 +90,7 @@ def part_e_ct(speech):
     spacy_tokens = nlp(speech.lower())
     custom_tokens = []
     for each in spacy_tokens:
-        if len(each.text)>1:
+        if not each.is_punct and not each.is_space:
             custom_tokens.append(each.text)
     grams = []
     grams.extend(custom_tokens)
