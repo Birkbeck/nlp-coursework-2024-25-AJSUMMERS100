@@ -52,6 +52,23 @@ def part_b(df):
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, stratify = y, random_state = random_seed)
     return X_train, X_test, y_train, y_test
 
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.metrics import f1_score, classification_report
+def part_c(df, X_train, X_test, y_train, y_test):
+    random_seed = 26
+    np.random.seed(random_seed)
+    rfc = RandomForestClassifier(n_estimators=300, random_states = random_seed)
+    rfc.fit(X_train, y_train)
+    rfc_pred = rfc.predict(X_test)
+    rfc_f1_score = f1_score(y_test, rfc_pred, average = "macro")
+    print("Macro f1 Score for RandomForest: ", rfc_f1_score)
+    rfc_classification = classification_report(y_test, rfc_pred)
+    print("Classification Report for RandomForest: ", rfc_classification)
+    
+
+
+
 if __name__ == "__main__":
     path = Path.cwd() / "p2-texts" / "hansard40000.csv"
     
@@ -61,9 +78,12 @@ if __name__ == "__main__":
 
     # Part b
     X_train, X_test, y_train, y_test = part_b(df)
+    
     # Part c
 
+
     # Part d
+
 
     # Part e
 
