@@ -139,12 +139,32 @@ def get_fks(df):
         results[row["title"]] = round(fk_level(row["text"], cmudict), 4)
     return results
 
-
+import math
 def subjects_by_verb_pmi(doc, target_verb):
     """Extracts the most common subjects of a given verb in a parsed document. Returns a list."""
-    pass
-
-
+    
+    possible_subjects = {"nsubj", "nsubjpass"}
+    syntactic_subjects = Counter()
+    verbs = Counter()
+    pairs = Counter()
+    all_pairs = 0
+    for token in row['parsed']:
+        if token.pos_ == "VERB":
+                verb = token.lemma_.lower()
+                for each in token.children:
+                    if each.dep_ in possible_subjects:
+                        syntactic_subjects[each] +=1
+                        verbs[verb.lower()] +=1
+                        pairs[(each,verb.lower())] +=1
+                        all_pairs +=1
+    pointwise = {}
+    for (each,verb_loop), count in pairs.items():
+        if verb_loop == target_verb:
+            px = syntactic_subjects[each]
+            py = verbs[verb_loop]
+            pxy = count * all_pairs
+            pointwise[each] = math.log2(pxy/(px*py))
+    return sorted(pointwise.items())[:10]
 
 def subjects_by_verb_count(doc, verb):
     """Extracts the most common subjects of a given verb in a parsed document. Returns a list."""
@@ -193,10 +213,9 @@ if __name__ == "__main__":
         print(row["title"])
         print(subjects_by_verb_count(row["parsed"], "hear"))
         print("\n")
-""""
+
     for i, row in df.iterrows():
         print(row["title"])
         print(subjects_by_verb_pmi(row["parsed"], "hear"))
         print("\n")
-    """
 
