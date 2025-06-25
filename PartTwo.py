@@ -62,18 +62,26 @@ def part_c(df, X_train, X_test, y_train, y_test):
     rfc.fit(X_train, y_train)
     rfc_pred = rfc.predict(X_test)
     rfc_f1_score = f1_score(y_test, rfc_pred, average = "macro")
-    print("Macro f1 Score for RandomForest: ", rfc_f1_score)
+    print("\n Macro f1 Score for RandomForest: {}\n".format(rfc_f1_score))
     rfc_classification = classification_report(y_test, rfc_pred)
-    print("Classification Report for RandomForest: ", rfc_classification)
+    print("Classification Report for RandomForest: \n", rfc_classification)
     svm = SVC(kernel="linear", random_state = random_seed)
     svm.fit(X_train, y_train)
     svm_pred = svm.predict(X_test)
     svm_f1_score = f1_score(y_test, svm_pred, average = "macro")
-    print("Macro f1 Score for SVM with Linear Kernel: ", svm_f1_score)
+    print("\n Macro f1 Score for SVM with Linear Kernel: {}\n".format(svm_f1_score))
     svm_classification = classification_report(y_test, svm_pred)
-    print("Classification Report for SVM with Linear Kernel: ", svm_classification)
+    print("Classification Report for SVM with Linear Kernel: \n", svm_classification)
 
 
+def part_d(df):
+    random_seed = 26
+    np.random.seed(random_seed)
+    tv = TfidfVectorizer(ngram_range=(1,3), max_features = 3000)
+    X = tv.fit_transform(df['speech'])
+    y = df['party']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, stratify = y, random_state = random_seed)
+    part_c(df, X_train, X_test, y_train, y_test)
 
 
 if __name__ == "__main__":
@@ -90,7 +98,8 @@ if __name__ == "__main__":
     part_c(df, X_train, X_test, y_train, y_test)
 
     # Part d
-
+    part_d(df)
 
     # Part e
 
+    # Part f
