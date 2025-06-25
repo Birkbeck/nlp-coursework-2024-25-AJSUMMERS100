@@ -65,6 +65,13 @@ def part_c(df, X_train, X_test, y_train, y_test):
     print("Macro f1 Score for RandomForest: ", rfc_f1_score)
     rfc_classification = classification_report(y_test, rfc_pred)
     print("Classification Report for RandomForest: ", rfc_classification)
+    svm = SVC(kernel="linear", random_state = random_seed)
+    svm.fit(X_train, y_train)
+    svm_pred = svm.predict(X_test)
+    svm_f1_score = f1_score(y_test, svm_pred, average = "macro")
+    print("Macro f1 Score for SVM with Linear Kernel: ", svm_f1_score)
+    svm_classification = classification_report(y_test, svm_pred)
+    print("Classification Report for SVM with Linear Kernel: ", svm_classification)
 
 
 
