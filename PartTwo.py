@@ -90,7 +90,8 @@ def part_e_ct(speech):
     spacy_tokens = nlp(speech.lower())
     custom_tokens = []
     for each in spacy_tokens:
-        custom_tokens.append(each.text)
+        if len(each.text)>1:
+            custom_tokens.append(each.text)
     grams = []
     grams.extend(custom_tokens)
     bigrams = ngrams(custom_tokens,2)
