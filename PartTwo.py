@@ -84,6 +84,27 @@ def part_d(df):
     part_c(df, X_train, X_test, y_train, y_test)
 
 
+from nltk.tokenize import word_tokenize
+from nltk.util import ngrams
+def part_e_ct(speech):
+    custom_tokens = word_tokenize(speech.lower())
+    grams = []
+    grams.extend(custom_tokens)
+    bigrams = ngrams(custom_tokens,2)
+    grams.extend('_'.join(bigram) for bigram in bigrams)
+    trigrams = ngrams(custom_tokens,3)
+    grams.extend('_'.join(trigram) for trigram in trigrams)
+    return grams
+def part_e(df):
+    random_seed = 26
+    np.random.seed(random_seed)
+    tv = TfidfVectorizer(tokenizer = part_e_ct, max_features = 2500)
+    X = tv.fit_transform(df['speech'])
+    y = df['party']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, stratify = y, random_state = random_seed)
+    part_c(df, X_train, X_test, y_train, y_test)
+
+
 if __name__ == "__main__":
     path = Path.cwd() / "p2-texts" / "hansard40000.csv"
     
@@ -101,5 +122,6 @@ if __name__ == "__main__":
     part_d(df)
 
     # Part e
+    part_e(df)
 
     # Part f
