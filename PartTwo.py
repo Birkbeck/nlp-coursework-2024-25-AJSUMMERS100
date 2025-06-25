@@ -37,8 +37,20 @@ def part_a(path):
 
     # Part IV
     df = df[df['speech'].str.len() >=1000]
-
     return df
+
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split
+import numpy as np
+def part_b(df):
+    random_seed = 26
+    np.random.seed(random_seed)
+    tv = TfidfVectorizer(max_features = 3000)
+    X = tv.fit_transform(df['speech'])
+    y = df['party']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, stratify = y, random_state = random_seed)
+    return X_train, X_test, y_train, y_test
 
 if __name__ == "__main__":
     path = Path.cwd() / "p2-texts" / "hansard40000.csv"
@@ -48,3 +60,10 @@ if __name__ == "__main__":
     print(df.shape)
 
     # Part b
+    X_train, X_test, y_train, y_test = part_b(df)
+    # Part c
+
+    # Part d
+
+    # Part e
+
