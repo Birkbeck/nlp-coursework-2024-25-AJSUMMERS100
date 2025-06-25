@@ -33,7 +33,11 @@ def part_a(path):
         new_counters[each] +=1
 
     # Part III
-    
+    df = df[df['speech_class']=="Speech"]
+
+    # Part IV
+    df = df[df['speech'].str.len() >=1000]
+
     return df
 
 if __name__ == "__main__":
