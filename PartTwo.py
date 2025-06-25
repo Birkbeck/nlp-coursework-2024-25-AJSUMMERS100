@@ -58,14 +58,14 @@ from sklearn.metrics import f1_score, classification_report
 def part_c(df, X_train, X_test, y_train, y_test):
     random_seed = 26
     np.random.seed(random_seed)
-    rfc = RandomForestClassifier(n_estimators=300, random_states = random_seed)
+    rfc = RandomForestClassifier(n_estimators=300, random_state = random_seed)
     rfc.fit(X_train, y_train)
     rfc_pred = rfc.predict(X_test)
     rfc_f1_score = f1_score(y_test, rfc_pred, average = "macro")
     print("Macro f1 Score for RandomForest: ", rfc_f1_score)
     rfc_classification = classification_report(y_test, rfc_pred)
     print("Classification Report for RandomForest: ", rfc_classification)
-    
+
 
 
 
@@ -80,7 +80,7 @@ if __name__ == "__main__":
     X_train, X_test, y_train, y_test = part_b(df)
     
     # Part c
-
+    part_c(df, X_train, X_test, y_train, y_test)
 
     # Part d
 
