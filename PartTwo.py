@@ -123,5 +123,3 @@ if __name__ == "__main__":
 
     # Part e
     part_e(df)
-
-    # Part f
