@@ -7,3 +7,16 @@ to a paragraph with simpler words and sentences being graded
 higher than that of a more complext text, even though it may
 not be of similar quality. This implies that context of the text
 itself is not relevant in the grading process.
+
+Question 2: Part F:
+By usinging the spaCy tokenization method, in coallition with removing 
+punctuation and spaces, has resulted in relatively good f1 scores. I have
+also been able to drop the max_features to 2500( a saving of ~17%). 
+With this drop in max features, it is expected that the accuracy would
+also drop, however, the accuracy was maintained from both original models.
+In addition, the f1 scores for random forrest increased from 0.4097 to 0.4913.
+In SVM, we see that the f1 results did take a slight decrease from 0.5628 to 0.5597.
+With all of this in mind, I conclude that my custom tokeniser has worked very effectively.
+I took the hint to use the three classifiers from part d, unigrams/bigrams/trigrams, in
+order to add more context to the model. TO improve the model further, I could have gone
+further by investigating higher order grams(ie quad and beyond).
